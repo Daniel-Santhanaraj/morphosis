@@ -1,0 +1,401 @@
+$font : 'Nunito', sans-serif;
+$color: #161616;
+$white: #fff;
+$green: #4ad0b2;
+$green-h: #249f83;
+$blue: #5a5ccf;
+$grey: #ccc;
+$grey-h: #666;
+
+* {
+  transition: all 0.5s ease;
+}
+
+body {
+  margin: 0;
+  font-family: $font;
+  color: $color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  width: 1170px;
+  margin: auto;
+  padding: 50px 0;
+}
+
+img {
+    width: auto;
+    max-width: 100%;
+}
+.padding15 {
+  padding: 0 15px;
+}
+
+.col-9 {
+    width: 75%;
+}
+
+.col-3 {
+    width: 25%;
+    background-color: #eee;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+.empty {
+    text-align: center;
+    font-size: 16px;
+    opacity: 0.6;
+    color: $color;
+}
+.title {
+    display: block;
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+}
+.summary {
+    text-align: right;
+}
+.cardDiv {
+    padding: 15px;
+    width: 33.33%;
+    box-sizing: border-box;
+    
+    .card {
+      text-align: left;
+      box-shadow: 0 0 9px 0 rgb(0 0 0 / 10%);
+      padding: 15px;
+      position: relative;
+      padding-top: 0;
+
+      &:hover img {
+        transform: scale(1.1);
+      }
+
+      img {
+         width: 100%;
+      }
+
+      h3 {
+        font-size: 16px;
+        margin: 10px 0 0px;
+      }
+      button {
+        border-radius: 5px;
+        color: $white;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        font-weight: 700;
+        height: 40px;
+        font-size: 12px;
+        display: block;
+        cursor: pointer;
+        text-transform: uppercase;
+
+          &.active {
+            background-color: $green;
+            border: 2px solid $green;
+
+            &:hover {
+            background-color: $green-h;
+            color: $white;
+            }
+          }
+
+          &.inactive {
+            background-color: $grey;
+            border: 2px solid $grey;
+            cursor: initial;
+        
+            &:hover {
+              background-color: $grey;
+              color: $white;
+            }
+          }
+        
+      }
+
+    .stock {
+        color: $color;
+        font-size: 12px;
+
+        &.sort {
+            animation: blink 1s linear infinite;
+        }
+    }
+    @keyframes blink{
+        0%{opacity: 0;}
+        50%{opacity: .5;}
+        100%{opacity: 1;}
+    }
+    /*
+    .ribbon-wrapper {
+        width: 85px;
+        height: 88px;
+        overflow: hidden;
+        position: absolute;
+        top: -3px;
+        left: -3px;
+        .ribbon {
+        font: bold 15px sans-serif;
+        color: $color;
+        text-align: center;
+        -webkit-transform: rotate(-45deg);
+        -moz-transform:    rotate(-45deg);
+        -ms-transform:     rotate(-45deg);
+        -o-transform:      rotate(-45deg);
+        position: relative;
+        padding: 7px 0;
+        top: 15px;
+        left: -30px;
+        width: 120px;
+        background-color: $blue;
+        color: #fff;
+        }
+    }
+    */
+
+    .additional {
+        //display: flex;
+        //justify-content: space-between;
+        margin-bottom: 6px;
+    }
+
+    h4 {
+        margin:4px 0 6px;
+        font-weight: 600;
+    }
+    .material {
+        font-size: 12px;
+        color: $blue;
+        font-weight: bold;
+    }
+    .date {
+        font-size: 12px;
+        opacity: 0.7;
+        display: block;
+        //position: absolute;
+        //top: 10px;
+    }    
+
+      p {
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+  }
+
+  
+  /** Cart area */
+.cartArea {
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            width: 276px;
+            padding: 10px 0;
+            border-bottom: 1px solid $grey;
+
+            &:hover {
+                box-shadow: 0 0 9px 0 rgb(0 0 0 / 10%);
+            }
+
+            img {
+                max-width: 50px;
+                margin-right: 10px;
+            }
+
+            h3 {
+                font-size: 16px;
+                margin: 0;
+                width: 140px;
+            }
+        }
+    }
+    
+    .quantity {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    .quantity__minus {
+        display: block;
+        width: 22px;
+        height: 23px;
+        cursor: pointer;
+        margin: 0;
+        background: $grey;
+        text-decoration: none;
+        text-align: center;
+        line-height: 23px;
+        border-radius: 3px 0 0 3px;
+
+        &:hover {
+            background: $grey-h;
+            color: $white;
+        }
+    }
+    .quantity__plus {
+        display: block;
+        width: 22px;
+        height: 23px;
+        cursor: pointer;
+        margin: 0;
+        background: $grey;
+        text-decoration: none;
+        text-align: center;
+        line-height: 23px;
+        border-radius: 0 3px 3px 0;
+
+        &:hover {
+            background: $grey-h;
+            color: $white;
+        }
+    }
+    .quantity__input {
+        width: 32px;
+        height: 19px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        border-top:1px solid $grey;
+        border-bottom: 1px solid $grey;
+        border-left: 1px solid $grey;
+        border-right: 1px solid $grey;
+        background: $white;
+        color: $color;
+    }
+}
+
+
+  @media only screen and (max-width: 1024px) {
+    .container {
+      width: 100%;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .container {
+      width: 100%;
+    }
+  }
+
+/* Css loader */
+.body-wrap {
+    background-color: $white;
+  }
+  @keyframes lds-roller {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }
+  .lds-roller {
+      display: inline-block;
+      position: fixed;
+      width: 80px;
+      height: 80px;
+    left: 0;
+    right: 0;
+    margin: AUTO;
+    top: 0;
+    bottom: 0;
+  
+      div {
+          animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          transform-origin: 40px 40px;
+  
+          &:after {
+              content: " ";
+              display: block;
+              position: absolute;
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              background: $blue;
+              margin: -4px 0 0 -4px;
+          }
+  
+          &:nth-child(1) {
+              animation-delay: -0.036s;
+  
+              &:after {
+                  top: 63px;
+                  left: 63px;
+              }
+          }
+  
+          &:nth-child(2) {
+              animation-delay: -0.072s;
+  
+              &:after {
+                  top: 68px;
+                  left: 56px;
+              }
+          }
+  
+          &:nth-child(3) {
+              animation-delay: -0.108s;
+  
+              &:after {
+                  top: 71px;
+                  left: 48px;
+              }
+          }
+          &:nth-child(4) {
+              animation-delay: -0.144s;
+              &:after {
+                  top: 72px;
+                  left: 40px;
+              }
+          }
+          &:nth-child(5) {
+              animation-delay: -0.18s;
+              &:after {
+                  top: 71px;
+                  left: 32px;
+              }
+          }
+          &:nth-child(6) {
+              animation-delay: -0.216s;
+              &:after {
+                  top: 68px;
+                  left: 24px;
+              }
+          }
+          &:nth-child(7) {
+              animation-delay: -0.252s;
+              &:after {
+                  top: 63px;
+                  left: 17px;
+              }
+          }
+          &:nth-child(8) {
+              animation-delay: -0.288s;
+              &:after {
+                  top: 56px;
+                  left: 12px;
+              }
+          }
+      }
+  }
+  
