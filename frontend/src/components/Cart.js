@@ -4,19 +4,26 @@ import Products from './Products';
 const Cart = (props) => {
     const [cartData, setCartData] = useState([]);
     const [price, setPrice] = useState(0);
+    const [amount, setAmount] = useState(0);
     const [uniqueData, setUniqueData] = useState([]);
     const [allProducts, setAllProducts] = useState(props.data);
 
-    const priceData = cartData.reduce((total, product) => {
-        total = total+parseFloat(product.price);
+    const priceData = uniqueData.reduce((total, product) => {
+        total= total + parseFloat(product.price) * (product.actual_stock - product.stock)
         return total;
     }, 0.00);
+
+    const amountData = uniqueData.reduce((total, product) => {
+        total= total + (product.actual_stock - product.stock)
+        return total;
+    }, 0);
 
     useEffect(() => {
         setCartData(props.robots); 
         setUniqueData(props.unique); 
-        setPrice(priceData.toFixed(2));   
-    }, [props, cartData]); 
+        setPrice(priceData.toFixed(2));  
+        setAmount(amountData);  
+    }, [props, cartData, uniqueData]); 
     
     const img = (img) => {
         return img.split("?")[0]
@@ -41,37 +48,8 @@ const Cart = (props) => {
                         return prod;
                     })
         props.getProducts(result);
+        console.log(uniqueData);
     }
-
-    /*
-    let increment = (val) => {
-        let result = [...allProducts].map((prod, i) => {
-                        if(prod.name == val.name) {
-                            if(prod.stock != 0 ) {                
-                                prod.stock = prod.stock - 1;
-                            } else {
-                                return false;
-                            }                
-                        }
-                        return prod;
-                    })
-        props.getProducts(result);
-    }
-
-    let decrement = (val) => {
-        let result = [...allProducts].map((prod, i) => {
-                        if(prod.name == val.name) {
-                            if(prod.stock <= prod.actual_stock) {                
-                                prod.stock = prod.stock + 1;
-                            } else {
-                                return false;
-                            }                
-                        }
-                        return prod;
-                    })
-        props.getProducts(result);
-    }
-    */
 
     return (   
         <div className="cartArea">
@@ -98,7 +76,7 @@ const Cart = (props) => {
                     
                 </ul>
                 <div className="summary">
-                    <h3>Total Amount: {cartData.length}</h3>
+                    <h3>Total Amount: {amount}</h3>
                     <h3>Total Price: &#3647; {price}</h3>
                 </div>
             </div>
