@@ -5,6 +5,7 @@ const Cart = (props) => {
     const [cartData, setCartData] = useState([]);
     const [price, setPrice] = useState(0);
     const [uniqueData, setUniqueData] = useState([]);
+    const [allProducts, setAllProducts] = useState(props.data);
 
     const priceData = cartData.reduce((total, product) => {
         total = total+parseFloat(product.price);
@@ -21,6 +22,57 @@ const Cart = (props) => {
         return img.split("?")[0]
     }
 
+    let stockVal = (data) => {
+        const result = data.actual_stock - data.stock;
+        return (result != 0) ? result : 0;
+    }
+
+    let counter = (val, action) => {
+        let result = [...allProducts].map((prod, i) => {
+                        if(prod.name == val.name) {
+                            if(prod.stock != 0 && action == 'inc') {                
+                                prod.stock = prod.stock - 1;
+                            } else if(prod.stock < prod.actual_stock-1 && action == 'dec') { 
+                                prod.stock = prod.stock + 1;
+                            }  else {
+                                return false;
+                            }              
+                        }
+                        return prod;
+                    })
+        props.getProducts(result);
+    }
+
+    /*
+    let increment = (val) => {
+        let result = [...allProducts].map((prod, i) => {
+                        if(prod.name == val.name) {
+                            if(prod.stock != 0 ) {                
+                                prod.stock = prod.stock - 1;
+                            } else {
+                                return false;
+                            }                
+                        }
+                        return prod;
+                    })
+        props.getProducts(result);
+    }
+
+    let decrement = (val) => {
+        let result = [...allProducts].map((prod, i) => {
+                        if(prod.name == val.name) {
+                            if(prod.stock <= prod.actual_stock) {                
+                                prod.stock = prod.stock + 1;
+                            } else {
+                                return false;
+                            }                
+                        }
+                        return prod;
+                    })
+        props.getProducts(result);
+    }
+    */
+
     return (   
         <div className="cartArea">
             <h1 className="title">Cart</h1>
@@ -35,9 +87,9 @@ const Cart = (props) => {
                                     <img src={`${img(data.image)}?size=240x240`} alt="img" />
                                     <h3>{data.name}</h3>
                                     <div className="quantity">
-                                        <b className="quantity__minus"><span>-</span></b>
-                                        <input name="quantity" type="text" className="quantity__input" value="1" readOnly/>
-                                        <b className="quantity__plus"><span>+</span></b>
+                                        <b className="quantity__minus" onClick={() => counter(data, 'dec')}><span>-</span></b>
+                                        <input name="quantity" type="text" className="quantity__input" value={stockVal(data)} readOnly/>
+                                        <b className="quantity__plus" onClick={() => counter(data, 'inc')}><span>+</span></b>
                                     </div>
                                 </li>
                             )
@@ -47,7 +99,7 @@ const Cart = (props) => {
                 </ul>
                 <div className="summary">
                     <h3>Total Amount: {cartData.length}</h3>
-                    <h3>Total Price: &#3647;{price}</h3>
+                    <h3>Total Price: &#3647; {price}</h3>
                 </div>
             </div>
             : <h3 className="empty">Cart is empty!</h3>

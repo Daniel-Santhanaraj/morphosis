@@ -295,6 +295,46 @@ img {
     .container {
       width: 100%;
     }
+
+    .row {
+        display: block;
+    }
+    .col-9 {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .col-3 {
+        width: 100%;
+        background-color: #eee;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    .products {
+        display: block;
+    }
+    .cardDiv {
+        width: 100%;
+        .card {
+            text-align: center;
+
+            img {
+                width: 130px;
+            }
+
+            button {
+                margin: auto;
+            }
+        }
+    }
+  }
+
+  @media only screen and (min-width: 1025px) {
+      .cartFixed {
+        position: fixed;
+        height: 100%;
+        right: 6%;
+        width: 308px;
+      }
   }
 
 /* Css loader */

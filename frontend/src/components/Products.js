@@ -26,6 +26,9 @@ const Products = (props) => {
 
     /* Stock update */
     const updateStock = (product, i) => {
+        if(product['actual_stock'] == null ) {
+            product['actual_stock'] = product.stock;
+        }
         product.stock = product.stock - 1;
         let allprod = [...prod];
         allprod[i] = product;
@@ -38,7 +41,7 @@ const Products = (props) => {
         mcartdata.push(product);
         const unique = [...new Map(mcartdata.map((item) => [item["name"], item])).values()];  
         
-        if(unique.length <= 1) {
+        if(unique.length <= 5) {
             //Unique products
             props.getUniqueRobot(unique);
             

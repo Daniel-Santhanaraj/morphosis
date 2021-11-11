@@ -31,8 +31,8 @@ function App() {
             getProducts={data => setProducts(data)} 
             getUniqueRobot = { data => setUniqueRobot(data) }/>
           </div>
-          <div className="col-3 padding15">
-            <Cart robots={cart} unique = {uniqueRobot} />
+          <div className="col-3 padding15 cartFixed">
+            <Cart robots={cart} unique = {uniqueRobot} data={products} getProducts={data => setProducts(data)}  />
           </div>
         </div>
         
