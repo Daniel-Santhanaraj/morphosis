@@ -6,9 +6,6 @@ const Cart = (props) => {
     const [price, setPrice] = useState(0);
     const [uniqueData, setUniqueData] = useState([]);
 
-     
-    //console.log(props.robots, props.unique);
-
     const priceData = cartData.reduce((total, product) => {
         total = total+parseFloat(product.price);
         return total;
@@ -19,15 +16,6 @@ const Cart = (props) => {
         setUniqueData(props.unique); 
         setPrice(priceData.toFixed(2));   
     }, [props, cartData]); 
-      
-      /*
-    const groupData = cartData.reduce((groupProducts, product) => {
-        const name = product.name.split(' ')[0];
-        if(groupProducts[name] == null ) { groupProducts[name] = []}
-        groupProducts[name].push(product);
-        return groupProducts;
-    }, {});
-    */
     
     const img = (img) => {
         return img.split("?")[0]
@@ -38,8 +26,7 @@ const Cart = (props) => {
             <h1 className="title">Cart</h1>
             {
             (uniqueData.length > 0 ) ?
-            <div>
-                
+            <div>                
                 <ul>
                     {
                         uniqueData.map((data, i) => {
@@ -64,8 +51,7 @@ const Cart = (props) => {
                 </div>
             </div>
             : <h3 className="empty">Cart is empty!</h3>
-            }
-            
+            }            
         </div>
     )
 }

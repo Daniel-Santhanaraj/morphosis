@@ -4,6 +4,7 @@ const Products = (props) => {
     const [prod, setProd] = useState(props.data);
     const [mcart, setMcart] = useState([]);
 
+    /*date format*/
     const formatDate = (date) => {
         let d = new Date(date),
             month = '' + (d.getMonth() + 1),
@@ -18,10 +19,12 @@ const Products = (props) => {
         return [day, month, year].join('-');
     }
 
+    /*Image size render*/
     const img = (img) => {
         return img.split("?")[0]
     }
 
+    /* Stock update */
     const updateStock = (product, i) => {
         product.stock = product.stock - 1;
         let allprod = [...prod];
