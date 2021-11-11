@@ -1,8 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const Products = (props) => {
     const [prod, setProd] = useState(props.data);
     const [mcart, setMcart] = useState([]);
+    const [search, setSearch] = useState('');
+    const [productClone, setProductClone] = useState('');
+
+    useEffect(() => {
+        setProductClone(prod);
+    }, []); 
 
     /*date format*/
     const formatDate = (date) => {
@@ -34,6 +40,7 @@ const Products = (props) => {
         allprod[i] = product;
         setProd(allprod);                 
         props.getProducts(prod);
+        setProductClone(prod);
     }
 
     const addCart = (product, i) => {
@@ -63,27 +70,56 @@ const Products = (props) => {
         }
     }
     
+    const productFilter = () => {
+        setProd(productClone);
+        if(search != '') {            
+            const filteredData = [...prod].filter((item) => {
+                return (item.material.toLowerCase() === search.toLowerCase());                
+            })
+            setProd(filteredData);
+        }
+    }
+    
+        
+    const _handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            productFilter();
+        }
+      }
+
     return (
         <div className="products">
-            <h1 className="title">Robot Market</h1>
+            <div className="header">
+                <h1 className="title">Robot Market</h1>
+                <div>
+                    <input type="text" className="input" placeholder="Search by material" onChange={ (e) => setSearch(e.target.value)} onKeyDown={(e) => _handleKeyDown(e)}/>
+                    <button type="button" onClick={() => { productFilter()} }>Search</button>
+                </div>
+            </div>
             {
-                prod.map((product, i) => {
-                    return (
-                        <div className="cardDiv" key={i}>
-                            <div className="card">
-                                <img src={`${img(product.image)}?size=240x240`} alt="img" />
-                                <h3>{product.name}</h3>
-                                <span className="material">{product.material}</span>
-                                <h4>&#3647; {product.price}</h4>
-                                <div className="additional">
-                                    <span className="stock"> In stock: {product.stock}</span>
-                                    <span className="date">Created at: {formatDate(product.createdAt)}</span> 
+                (prod.length > 0) ?
+                <div className="grid">
+                    {
+                        prod.map((product, i) => {
+                            return (
+                                <div className="cardDiv" key={i}>
+                                    <div className="card">
+                                        <img src={`${img(product.image)}?size=240x240`} alt="img" />
+                                        <h3>{product.name}</h3>
+                                        <span className="material">{product.material}</span>
+                                        <h4>&#3647; {product.price}</h4>
+                                        <div className="additional">
+                                            <span className="stock"> In stock: {product.stock}</span>
+                                            <span className="date">Created at: {formatDate(product.createdAt)}</span> 
+                                        </div>
+                                        <button className={(product.stock > 0) ? `active` : 'inactive'} onClick={() => (product.stock > 0) ? addCart(product, i) : null  }>add to cart</button>                            
+                                    </div>
                                 </div>
-                                <button className={(product.stock > 0) ? `active` : 'inactive'} onClick={() => (product.stock > 0) ? addCart(product, i) : null  }>add to cart</button>                            
-                            </div>
-                        </div>
-                    )
-                })
+                            )
+                        })
+                    }
+                </div>
+                : <h3 className="empty">No Data</h3>
             }
             
         </div>

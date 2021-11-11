@@ -1,5 +1,6 @@
 $font : 'Nunito', sans-serif;
 $color: #161616;
+$red: #D5333E;
 $white: #fff;
 $green: #4ad0b2;
 $green-h: #249f83;
@@ -55,16 +56,65 @@ img {
     text-align: center;
     font-size: 16px;
     opacity: 0.6;
+    display: block;
+    width: 100%;
+    margin-top: 100px;
     color: $color;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 15px;
+
+    div {
+        display: flex;
+    }
+
+    input {
+        padding: 10px 20px;
+        width: 250px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        height: 45px;
+      }
+    
+      button {
+        background-color: $red;
+        border: 2px solid $red;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        color: $white;
+        padding: 10px 30px;
+        box-sizing: border-box;
+        font-weight: 700;
+        height: 45px;
+        cursor: pointer;
+    
+        &:hover {
+          background-color: $white;
+          color: $red;
+        }
+      }
+    
 }
 .title {
     display: block;
     width: 100%;
-    text-align: center;
+    text-align: left;
     font-size: 20px;
 }
 .summary {
     text-align: right;
+}
+
+.grid {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
 .cardDiv {
     padding: 15px;
@@ -292,6 +342,17 @@ img {
   }
   
   @media only screen and (max-width: 768px) {
+    .header {
+        display: block;
+        box-sizing: border-box;
+
+        input {
+            width: 185px;
+        }
+        button {
+            padding: 10px  20px;
+        }
+    }
     .container {
       width: 100%;
     }
