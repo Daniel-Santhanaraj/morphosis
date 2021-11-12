@@ -4,11 +4,7 @@ const Products = (props) => {
     const [prod, setProd] = useState(props.data);
     const [mcart, setMcart] = useState([]);
     const [search, setSearch] = useState('');
-    const [productClone, setProductClone] = useState('');
-
-    useEffect(() => {
-        setProductClone(prod);
-    }, []); 
+    const [filterProduct, setFilterProduct] = useState(props.data);
 
     /*date format*/
     const formatDate = (date) => {
@@ -31,16 +27,17 @@ const Products = (props) => {
     }
 
     /* Stock update */
-    const updateStock = (product, i) => {
+    const updateStock = (product) => {
         if(product['actual_stock'] == null ) {
             product['actual_stock'] = product.stock;
         }
         product.stock = product.stock - 1;
         let allprod = [...prod];
-        allprod[i] = product;
+        //allprod[i] = product;
+        let index = allprod.findIndex( x => x.name === product.name );
+        allprod[index] = product;
         setProd(allprod);                 
         props.getProducts(prod);
-        setProductClone(prod);
     }
 
     const addCart = (product, i) => {
@@ -53,7 +50,7 @@ const Products = (props) => {
             props.getUniqueRobot(unique);
             
             //Stock update
-            updateStock(product, i);
+            updateStock(product);
             
             //Selected products            
             setMcart(mcartdata);
@@ -62,7 +59,7 @@ const Products = (props) => {
             mcartdata.splice(-1);
             unique.splice(-1);
             if (unique.filter(val => val.name === product.name).length > 0) {
-                updateStock(product, i);
+                updateStock(product);
             } else {
                 alert("Maximum limit exceeded");
             }
@@ -71,12 +68,12 @@ const Products = (props) => {
     }
     
     const productFilter = () => {
-        setProd(productClone);
-        if(search != '') {            
+        setFilterProduct(prod);
+        if(search != '') {           
             const filteredData = [...prod].filter((item) => {
                 return (item.material.toLowerCase() === search.toLowerCase());                
             })
-            setProd(filteredData);
+            setFilterProduct(filteredData);
         }
     }
     
@@ -92,15 +89,15 @@ const Products = (props) => {
             <div className="header">
                 <h1 className="title">Robot Market</h1>
                 <div>
-                    <input type="text" className="input" placeholder="Search by material" onChange={ (e) => setSearch(e.target.value)} onKeyDown={(e) => _handleKeyDown(e)}/>
+                    <input type="text" className="input" placeholder="Search by material" onChange={ (e) => setSearch(e.target.value)} onKeyDown={(e) => _handleKeyDown(e)} onBlur={(e) => productFilter()}/>
                     <button type="button" onClick={() => { productFilter()} }>Search</button>
                 </div>
             </div>
             {
-                (prod.length > 0) ?
+                (filterProduct.length > 0) ?
                 <div className="grid">
                     {
-                        prod.map((product, i) => {
+                        filterProduct.map((product, i) => {
                             return (
                                 <div className="cardDiv" key={i}>
                                     <div className="card">

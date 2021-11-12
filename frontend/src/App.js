@@ -10,6 +10,8 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [uniqueRobot, setUniqueRobot] = useState([]);
+  const [active, setActive] = useState('inactive');
+  const [arrow, setArrow] = useState('up');
   
   const url = 'http://localhost:8000/api/robots';
   useEffect(() => {
@@ -18,6 +20,13 @@ function App() {
       setLoader(false);
     }).catch( error => console.error(`error ${error}`));
   }, []);
+
+  useEffect(() => {
+    (arrow == 'up') ? setActive('inactive') : setActive('active');  
+  }, [arrow])
+  let cartShow = () => {
+    (arrow == 'up') ? setArrow('down') : setArrow('up');    
+  }
 
   return (
     <div className="App">
@@ -31,7 +40,8 @@ function App() {
             getProducts={data => setProducts(data)} 
             getUniqueRobot = { data => setUniqueRobot(data) }/>
           </div>
-          <div className="col-3 padding15 cartFixed">
+          <div className={`col-3 padding15 cartFixed ${active}`}>
+            <span className={`arrow ${arrow}`} onClick={() => cartShow()}></span>
             <Cart robots={cart} unique = {uniqueRobot} data={products} getProducts={data => setProducts(data)}  />
           </div>
         </div>

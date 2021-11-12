@@ -387,6 +387,33 @@ img {
             }
         }
     }
+
+    .cartFixed {
+        position: fixed;
+        top: 90%;
+        padding: 10px 20px;
+        height: 100%;
+
+        &.active {
+            top: 20%;
+        }
+
+        .arrow {
+            height: 32px;
+            width: 32px;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+
+            &.up {
+                background: url(./images/up.png) no-repeat;
+            }
+
+            &.down {
+                background: url(./images/down.png) no-repeat;
+            }
+        }
+    }
   }
 
   @media only screen and (min-width: 1025px) {

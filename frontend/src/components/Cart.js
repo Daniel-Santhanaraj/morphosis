@@ -48,12 +48,11 @@ const Cart = (props) => {
                         return prod;
                     })
         props.getProducts(result);
-        console.log(uniqueData);
     }
 
     return (   
         <div className="cartArea">
-            <h1 className="title">Cart</h1>
+            <h1 className="title">Cart ({amount})</h1>
             {
             (uniqueData.length > 0 ) ?
             <div>                
